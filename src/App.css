@@ -1,33 +1,222 @@
-.App {
-  text-align: center;
+/* Login page styles begin here.*/
+
+#loginPageBackground {
+    position: absolute;
+    top: 0;
+    right: 0;
+    left: 0;
+    bottom: 0;
+    background: url('images/bckg.jpg') no-repeat;
+    background-size: cover;
+    font-family: 'Quicksand', sans-serif;
 }
 
-.App-logo {
-  animation: App-logo-spin infinite 20s linear;
-  height: 40vmin;
-  pointer-events: none;
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 100;
+    }
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+
+#loginBox {
+    position: absolute;
+    width: 350px;
+    height: 450px;
+    top: 50%;
+    left: 50%;
+    margin-left: -175px;
+    margin-top: -225px;
+    border: solid 1px white ;
+    border-radius: 1rem;
+    background: rgba(0,0,0,0.1);
+    text-align: center;
+    animation: fadeIn 1s 1 forwards;
 }
 
-.App-link {
-  color: #61dafb;
+.boxHeading {
+    margin-top: 10px;
+    margin-bottom: 35px;
+    font-size: 3rem;
+    font-weight: bolder;
+    color: white;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.inputBox {
+    width: 300px;
+    height: 30px;
+    border-top: none;
+    border-right: none;
+    border-left: none;
+    border-bottom: solid 2px white;
+    background-color: transparent;
+    margin-left: 10px;
+    color: white;
 }
+
+.inputBox:focus {
+    outline: none;
+}
+
+
+#inputLabelLgBx {
+    margin-top: 70px;
+    text-align: left;
+    margin-left: 30px;
+    font-size: 1rem;
+    font-weight: bolder;
+    color: white;
+}
+
+#loginButton {
+    margin: 30px 0 20px 0;
+    height: 40px;
+    width: 100px;
+    border: none;
+    color: white;
+    border-radius: 1rem;
+    font-size: 1rem;
+    font-weight: bolder;
+    background-color: #0064FFFF;
+    outline: none;
+    cursor: pointer;
+    font-family: 'Quicksand', sans-serif;
+}
+
+#registerInstead {
+    display: block;
+    font-size: 1rem;
+    font-weight: bolder;
+    color: white;
+    cursor: pointer;
+}
+
+/* Login page styles end here.*/
+
+/* Register page styles begin here.*/
+
+#registerPageBackground {
+    position: fixed;
+    top: 0;
+    right: 0;
+    left: 0;
+    bottom: 0;
+    background: url('images/bckg.jpg') no-repeat;
+    background-size: cover;
+    font-family: 'Quicksand', sans-serif;
+}
+
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 100;
+    }
+}
+
+#registerBox {
+    position: absolute;
+    width: 350px;
+    height: 520px;
+    top: 50%;
+    left: 50%;
+    margin-left: -175px;
+    margin-top: -260px;
+    border: solid 1px white ;
+    border-radius: 1rem;
+    background: rgba(0,0,0,0.1);
+    text-align: center;
+    animation: fadeIn 2s 1 forwards;
+    padding: 10px;
+}
+
+#inputLabelRgBx {
+    margin-top: 60px;
+    text-align: left;
+    margin-left: 30px;
+    font-size: 1rem;
+    font-weight: bolder;
+    color: white;
+}
+
+
+#registerButton {
+    margin-top: 25px;
+    margin-bottom: 15px;
+    height: 40px;
+    width: 100px;
+    border: none;
+    color: white;
+    border-radius: 1rem;
+    font-size: 1rem;
+    font-weight: bolder;
+    background-color: #0064FFFF;
+    outline: none;
+    cursor: pointer;
+    font-family: 'Quicksand', sans-serif;
+}
+
+#loginInstead {
+    display:block;
+    font-size: 1rem;
+    font-weight: bolder;
+    color: white;
+    cursor: pointer;
+}
+
+/* Register page styles end here.*/
+
+/* Home page styles begin here.*/
+#homePageWrapper {
+    position: fixed;
+    top: 0;
+    right: 0;
+    left: 0;
+    bottom: 0;
+    z-index: -1;
+    background: url('images/office.jpg') no-repeat;
+    background-size: cover;
+    font-family: 'Quicksand', sans-serif;
+    overflow: auto;
+}
+
+#mainContentWrapper {
+    width: 75%;
+    min-height: 90%;
+    background: white;
+    margin: 50px auto;
+    padding: 20px;
+    box-shadow: 2px 2px 8px 0 rgba( 0, 0, 0, 0.2 );
+}
+
+#topRegion {
+    width: 100%;
+    background: aliceblue;
+    display: flex;
+    height: 100px;
+    margin-top: 25px;
+    margin-bottom: 25px;
+    font-size: 2rem;
+    font-weight: bold;
+    align-items: center;
+    justify-content: space-around;
+    box-shadow: 2px 2px 8px 0 rgba( 0, 0, 0, 0.2 );
+}
+
+#topRegion > div:hover{
+    color: blue;
+    cursor: pointer;
+}
+
+#bottomRegion {
+    width: 100%;
+    min-height: 300px;
+    background: aliceblue;
+    box-shadow: 2px 2px 8px 0 rgba( 0, 0, 0, 0.2 );
+}
+
+/* Home page styles end here.*/
+
