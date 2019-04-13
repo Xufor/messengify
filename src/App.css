@@ -185,7 +185,7 @@
 #mainContentWrapper {
     width: 75%;
     min-height: max-content;
-    background: white;
+    background: rgba(255,255,255,0.3);
     margin: 50px auto;
     padding: 20px;
     box-shadow: 2px 2px 8px 0 rgba( 0, 0, 0, 0.2 );
@@ -261,7 +261,7 @@
     box-shadow: 1px 1px 4px 0 rgba( 0, 0, 0, 0.2 );
 }
 
-#logoutBtn > button {
+#btnPair > button {
     display: block;
     background: white;
     outline: none;
@@ -271,14 +271,14 @@
     border: 1px lightgrey solid;
     border-radius: 2rem;
     font-weight: bold;
-    margin-top: 20px;
+    margin: 20px 5px 0 5px;
 }
 
-#logoutBtn > button:hover {
+#btnPair > button:hover {
     box-shadow: 1px 1px 4px 0 rgba( 0, 0, 0, 0.2 );
 }
 
-#logoutBtn {
+#btnPair {
     display: flex;
     width: 100%;
     justify-content: center;

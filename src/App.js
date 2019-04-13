@@ -118,14 +118,21 @@ class App extends Component {
                     <div id={'bottomRegion'}>
                         {this.bottomContentGen()}
                     </div>
-                    <div id={'logoutBtn'} onClick={this.logOut}><button>Logout</button></div>
+                    <div id={'btnPair'}>
+                        <button onClick={this.logout}>Refresh</button>
+                        <button onClick={this.refresh}>Logout</button>
+                    </div>
                 </div>
             </div>
         );
     };
 
-    logOut = () => {
+    logout = () => {
         this.setState({mode: 'login'});
+    };
+
+    refresh = () => {
+
     };
 
     changeOperation = (operation) => {
