@@ -5,16 +5,22 @@ class App extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            mode: 'home',
+            mode: 'login',
             id: '',
             name: '',
             pass: '',
             operation: 'inbox',
-            mails : [
+            received : [
                 ['Mike', 'Come to Meeting by 5pm'],
                 ['Tyler', 'Hey, How are you?'],
                 ['Kasper', 'Long time no see.']
             ],
+            sent : [
+                ['Mike', 'Come to Meeting by 5pm'],
+                ['Tyler', 'Hey, How are you?'],
+                ['Kasper', 'Long time no see.']
+            ],
+            text: ''
         }
     }
 
@@ -112,9 +118,14 @@ class App extends Component {
                     <div id={'bottomRegion'}>
                         {this.bottomContentGen()}
                     </div>
+                    <div id={'logoutBtn'} onClick={this.logOut}><button>Logout</button></div>
                 </div>
             </div>
         );
+    };
+
+    logOut = () => {
+        this.setState({mode: 'login'});
     };
 
     changeOperation = (operation) => {
@@ -123,24 +134,50 @@ class App extends Component {
 
     bottomContentGen = () => {
         if(this.state.operation === 'inbox') {
+            let i = 0,{ received } = this.state;
             return (
-                <React.Fragment>
-
-                </React.Fragment>
+                received.map((listItem) => {
+                    return <MailElement
+                        direction={'From'}
+                        text = {listItem[1]}
+                        person = {listItem[0]}
+                        key={`re${i++}`}
+                    />;
+                })
             );
         } else if(this.state.operation === 'sent') {
+            let i = 0,{ sent } = this.state;
             return (
-                <React.Fragment>
-
-                </React.Fragment>
+                sent.map((listItem) => {
+                    return <MailElement
+                        direction={'To'}
+                        text = {listItem[1]}
+                        person = {listItem[0]}
+                        key={`re${i++}`}
+                    />;
+                })
             );
         } else if(this.state.operation === 'compose') {
             return (
                 <React.Fragment>
-
+                    <div id={'to'}>To:</div>
+                    <input id={'receiverName'}/>
+                    <div id={'msg'}>Message:</div>
+                    <textarea id={'textarea'} onChange={this.onMessageChange} placeholder={'Type your message!'}/>
+                    <button id={'sendBtn'} onClick={this.onClickSend}>Send</button>
                 </React.Fragment>
             );
         }
+    };
+
+    onMessageChange = (event) => {
+        this.setState({
+            text: event.target.value
+        });
+    };
+
+    onClickSend = () => {
+
     };
 
     viewGenerator = () => {
@@ -156,6 +193,18 @@ class App extends Component {
         return (
             <div id={'app'}>
                 {this.viewGenerator()()}
+            </div>
+        );
+    }
+}
+
+class MailElement extends Component {
+    render() {
+        let {direction, text, person} = this.props;
+        return (
+            <div id={'mailElementWrapper'}>
+                <div>{`${direction}: ${person}`}</div>
+                <div>{`Message: ${text}`}</div>
             </div>
         );
     }

@@ -33,7 +33,6 @@
     border-radius: 1rem;
     background: rgba(0,0,0,0.1);
     text-align: center;
-    animation: fadeIn 1s 1 forwards;
 }
 
 .boxHeading {
@@ -129,8 +128,8 @@
     border-radius: 1rem;
     background: rgba(0,0,0,0.1);
     text-align: center;
-    animation: fadeIn 2s 1 forwards;
     padding: 10px;
+    animation: fadeIn 2s 1 forwards;
 }
 
 #inputLabelRgBx {
@@ -185,11 +184,12 @@
 
 #mainContentWrapper {
     width: 75%;
-    min-height: 90%;
+    min-height: max-content;
     background: white;
     margin: 50px auto;
     padding: 20px;
     box-shadow: 2px 2px 8px 0 rgba( 0, 0, 0, 0.2 );
+    animation: fadeIn 2s 1 forwards;
 }
 
 #topRegion {
@@ -212,10 +212,76 @@
 }
 
 #bottomRegion {
-    width: 100%;
-    min-height: 300px;
+    min-height: max-content;
+    padding: 30px 30px;
     background: aliceblue;
     box-shadow: 2px 2px 8px 0 rgba( 0, 0, 0, 0.2 );
+}
+#mailElementWrapper {
+    margin: 15px 0;
+    font-size: 1.1rem;
+}
+
+#to {
+    /*display: inline;*/
+    font-weight: bolder;
+    font-size: 1.3rem;
+}
+
+#receiverName {
+    width: 500px;
+    margin-top: 10px;
+}
+
+#msg {
+    margin-top: 20px;
+    font-weight: bolder;
+    font-size: 1.3rem;
+}
+
+#textarea {
+    margin-top: 20px;
+    height: 300px;
+    width: 500px;
+}
+
+#sendBtn {
+    display: block;
+    background: white;
+    outline: none;
+    font-family: 'Quicksand', sans-serif;
+    box-shadow: 1px 1px rgba( 0, 0, 0, 0.2 );
+    padding: 5px 10px;
+    border: 1px lightgrey solid;
+    border-radius: 2rem;
+    font-weight: bold;
+}
+
+#sendBtn:hover {
+    box-shadow: 1px 1px 4px 0 rgba( 0, 0, 0, 0.2 );
+}
+
+#logoutBtn > button {
+    display: block;
+    background: white;
+    outline: none;
+    font-family: 'Quicksand', sans-serif;
+    box-shadow: 1px 1px rgba( 0, 0, 0, 0.2 );
+    padding: 5px 10px;
+    border: 1px lightgrey solid;
+    border-radius: 2rem;
+    font-weight: bold;
+    margin-top: 20px;
+}
+
+#logoutBtn > button:hover {
+    box-shadow: 1px 1px 4px 0 rgba( 0, 0, 0, 0.2 );
+}
+
+#logoutBtn {
+    display: flex;
+    width: 100%;
+    justify-content: center;
 }
 
 /* Home page styles end here.*/
