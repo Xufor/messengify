@@ -1,27 +1,30 @@
 import React, { Component } from 'react';
+import axLib from 'axios';
 import './App.css';
+
+const INITIAL_STATE = {
+    mode: 'login',
+    id: '',
+    name: '',
+    pass: '',
+    operation: 'inbox',
+    received : [
+        ['Mike', 'Come to Meeting by 5pm'],
+        ['Tyler', 'Hey, How are you?'],
+        ['Kasper', 'Long time no see.']
+    ],
+    sent : [
+        ['Mike', 'Come to Meeting by 5pm'],
+        ['Tyler', 'Hey, How are you?'],
+        ['Kasper', 'Long time no see.']
+    ],
+    text: ''
+};
 
 class App extends Component {
     constructor(props) {
         super(props);
-        this.state = {
-            mode: 'login',
-            id: '',
-            name: '',
-            pass: '',
-            operation: 'inbox',
-            received : [
-                ['Mike', 'Come to Meeting by 5pm'],
-                ['Tyler', 'Hey, How are you?'],
-                ['Kasper', 'Long time no see.']
-            ],
-            sent : [
-                ['Mike', 'Come to Meeting by 5pm'],
-                ['Tyler', 'Hey, How are you?'],
-                ['Kasper', 'Long time no see.']
-            ],
-            text: ''
-        }
+        this.state = INITIAL_STATE;
     }
 
     onIdChange = (event) => {
@@ -48,10 +51,51 @@ class App extends Component {
         {
             alert("Please fill all the fields with a valid entry.")
         } else {
-            this.setState({mode: 'home'});
+            const { id, pass } = this.state;
+            axLib.request({
+                url: 'http://localhost:3003/login',
+                method: 'post',
+                headers: {'Content-Type': 'application/json'},
+                data: {
+                    id,
+                    pass
+                }
+            }).then(res => {
+                if(res.data.flag === 'Success'){
+                    this.setState({mode: 'home', name: res.data.name});
+                    this.initiateLoadingMails(id);
+                } else {
+                    alert('Could not log in. Please check your credentials.');
+                }
+            })
         }
     };
 
+    initiateLoadingMails = (id) => {
+        axLib.request({
+            url: 'http://localhost:3003/load',
+            method: 'post',
+            headers: {'Content-Type': 'application/json'},
+            data: {
+                id
+            }
+        }).then(res => {
+            this.generateMailLists(res);
+        })
+    };
+
+    generateMailLists = (res)  => {
+        let a = res.data, i, received = [], sent = [];
+        for(i =0; i< res.data.length;i++) {
+            if(a[i].destination === this.state.name) {
+                received.push([`${a[i].source}`, `${a[i].message}`]);
+            }
+            else {
+                sent.push([`${a[i].source}`, `${a[i].message}`]);
+            }
+        }
+        this.setState({received, sent});
+    };
 
     onClickRegister = () => {
         if(this.state.name === '' || this.state.id === '' || this.state.pass === '')
@@ -119,8 +163,8 @@ class App extends Component {
                         {this.bottomContentGen()}
                     </div>
                     <div id={'btnPair'}>
-                        <button onClick={this.logout}>Refresh</button>
-                        <button onClick={this.refresh}>Logout</button>
+                        <button onClick={this.initiateLoadingMails}>Refresh</button>
+                        <button onClick={this.logout}>Logout</button>
                     </div>
                 </div>
             </div>
@@ -128,11 +172,7 @@ class App extends Component {
     };
 
     logout = () => {
-        this.setState({mode: 'login'});
-    };
-
-    refresh = () => {
-
+        this.setState(INITIAL_STATE);
     };
 
     changeOperation = (operation) => {
