@@ -7,6 +7,7 @@ const INITIAL_STATE = {
     id: '',
     name: '',
     pass: '',
+    to: '',
     operation: 'inbox',
     received : [
         ['Mike', 'Come to Meeting by 5pm'],
@@ -25,6 +26,8 @@ class App extends Component {
     constructor(props) {
         super(props);
         this.state = INITIAL_STATE;
+        this.to = React.createRef();
+        this.txt = React.createRef();
     }
 
     onIdChange = (event) => {
@@ -47,11 +50,11 @@ class App extends Component {
 
 
     onClickSignIn = () => {
-        if(this.state.id === '' || this.state.pass === '')
+        const { id, pass } = this.state;
+        if(id === '' || pass === '')
         {
             alert("Please fill all the fields with a valid entry.")
         } else {
-            const { id, pass } = this.state;
             axLib.request({
                 url: 'http://localhost:3003/login',
                 method: 'post',
@@ -91,18 +94,34 @@ class App extends Component {
                 received.push([`${a[i].source}`, `${a[i].message}`]);
             }
             else {
-                sent.push([`${a[i].source}`, `${a[i].message}`]);
+                sent.push([`${a[i].destination}`, `${a[i].message}`]);
             }
         }
         this.setState({received, sent});
     };
 
     onClickRegister = () => {
-        if(this.state.name === '' || this.state.id === '' || this.state.pass === '')
+        const {name, id , pass} = this.state;
+        if(name === '' || id === '' || pass === '')
         {
             alert("Please fill all the fields with a valid entry.")
         } else {
-            this.setState({mode: 'home'});
+            axLib.request({
+                url: 'http://localhost:3003/register',
+                method: 'post',
+                headers: {'Content-Type': 'application/json'},
+                data: {
+                    id,
+                    pass,
+                    name
+                }
+            });
+            alert('Wait for few seconds! Your id will be sent to you on your mobile number!');
+            setTimeout(
+                () => {
+                    this.setState({mode: 'home'});
+                }, 3000
+            );
         }
     };
 
@@ -137,8 +156,6 @@ class App extends Component {
                     <div className={'boxHeading'}>Register</div>
                     <div id={'inputLabelRgBx'}>Name</div>
                     <input onChange={this.onNameChange} className={'inputBox'} type={'text'}/>
-                    <div id={'inputLabelRgBx'}>Employee ID</div>
-                    <input onChange={this.onIdChange} className={'inputBox'} type={'email'}/>
                     <div id={'inputLabelRgBx'}>Password</div>
                     <input onChange={this.onPasswordChange} className={'inputBox'} type={'password'}/>
                     <button onClick={() => this.onClickRegister()} id={'registerButton'}>Register</button>
@@ -163,7 +180,7 @@ class App extends Component {
                         {this.bottomContentGen()}
                     </div>
                     <div id={'btnPair'}>
-                        <button onClick={this.initiateLoadingMails}>Refresh</button>
+                        <button onClick={() => this.initiateLoadingMails(this.state.id)}>Refresh</button>
                         <button onClick={this.logout}>Logout</button>
                     </div>
                 </div>
@@ -207,14 +224,20 @@ class App extends Component {
         } else if(this.state.operation === 'compose') {
             return (
                 <React.Fragment>
-                    <div id={'to'}>To:</div>
-                    <input id={'receiverName'}/>
+                    <div id={'to'} >To:</div>
+                    <input id={'receiverName'} ref={this.to} onChange={this.onChangeTo}/>
                     <div id={'msg'}>Message:</div>
-                    <textarea id={'textarea'} onChange={this.onMessageChange} placeholder={'Type your message!'}/>
+                    <textarea id={'textarea'} ref={this.txt}  onChange={this.onMessageChange} placeholder={'Type your message!'}/>
                     <button id={'sendBtn'} onClick={this.onClickSend}>Send</button>
                 </React.Fragment>
             );
         }
+    };
+
+    onChangeTo = (event) => {
+        this.setState({
+            to: event.target.value
+        });
     };
 
     onMessageChange = (event) => {
@@ -224,7 +247,25 @@ class App extends Component {
     };
 
     onClickSend = () => {
-
+        const {id, to, text}  = this.state;
+        if(to === '' || text === '')
+        {
+            alert('Please fill all the fields with a valid entry.');
+        } else {
+            axLib.request({
+                url: 'http://localhost:3003/send',
+                method: 'post',
+                headers: {'Content-Type': 'application/json'},
+                data: {
+                    to,
+                    id,
+                    text
+                }
+            });
+            alert('Mail Sent.');
+            this.txt.current.value = '';
+            this.to.current.value = '';
+        }
     };
 
     viewGenerator = () => {
