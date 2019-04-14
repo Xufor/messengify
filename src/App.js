@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import axLib from 'axios';
 import './App.css';
 
-const BASE_URL = 'https://messangify-api.herokuapp.com';
+const BASE_URL = 'https://messengify-api.herokuapp.com';
 
 const INITIAL_STATE = {
     mode: 'login',
@@ -11,16 +11,8 @@ const INITIAL_STATE = {
     pass: '',
     to: '',
     operation: 'inbox',
-    received : [
-        ['Mike', 'Come to Meeting by 5pm'],
-        ['Tyler', 'Hey, How are you?'],
-        ['Kasper', 'Long time no see.']
-    ],
-    sent : [
-        ['Mike', 'Come to Meeting by 5pm'],
-        ['Tyler', 'Hey, How are you?'],
-        ['Kasper', 'Long time no see.']
-    ],
+    received : [],
+    sent : [],
     text: ''
 };
 
