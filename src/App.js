@@ -102,11 +102,11 @@ class App extends Component {
 
     onClickRegister = () => {
         const {name, id , pass} = this.state;
-        if(name === '' || id === '' || pass === '')
+        if(name === '' || pass === '')
         {
             alert("Please fill all the fields with a valid entry.")
         } else {
-            axLib.request({
+            let res = axLib.request({
                 url: 'http://localhost:3003/register',
                 method: 'post',
                 headers: {'Content-Type': 'application/json'},
@@ -116,11 +116,14 @@ class App extends Component {
                     name
                 }
             });
-            alert('Wait for few seconds! Your id will be sent to you on your mobile number!');
+            res.then(response => {
+                alert(`Your Id is ${response.data}. Please remember this Id. Now you will be redirected to login page automatically.`)
+            });
+            alert('Wait for few seconds! Your id will be sent generated in a few seconds!');
             setTimeout(
                 () => {
-                    this.setState({mode: 'home'});
-                }, 3000
+                    this.setState({mode: 'login'});
+                }, 5000
             );
         }
     };
