@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import axLib from 'axios';
 import './App.css';
 
+const BASE_URL = 'https://messangify-api.herokuapp.com';
+
 const INITIAL_STATE = {
     mode: 'login',
     id: '',
@@ -56,7 +58,8 @@ class App extends Component {
             alert("Please fill all the fields with a valid entry.")
         } else {
             axLib.request({
-                url: 'http://localhost:3003/login',
+                url: '/login',
+                baseURL: BASE_URL,
                 method: 'post',
                 headers: {'Content-Type': 'application/json'},
                 data: {
@@ -76,7 +79,8 @@ class App extends Component {
 
     initiateLoadingMails = (id) => {
         axLib.request({
-            url: 'http://localhost:3003/load',
+            url: '/load',
+            baseURL: BASE_URL,
             method: 'post',
             headers: {'Content-Type': 'application/json'},
             data: {
@@ -107,7 +111,8 @@ class App extends Component {
             alert("Please fill all the fields with a valid entry.")
         } else {
             let res = axLib.request({
-                url: 'http://localhost:3003/register',
+                url: '/register',
+                baseURL: BASE_URL,
                 method: 'post',
                 headers: {'Content-Type': 'application/json'},
                 data: {
@@ -256,7 +261,8 @@ class App extends Component {
             alert('Please fill all the fields with a valid entry.');
         } else {
             axLib.request({
-                url: 'http://localhost:3003/send',
+                url: '/send',
+                baseURL: BASE_URL,
                 method: 'post',
                 headers: {'Content-Type': 'application/json'},
                 data: {
