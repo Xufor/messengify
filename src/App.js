@@ -2,8 +2,6 @@ import React, { Component } from 'react';
 import axLib from 'axios';
 import './App.css';
 
-const BASE_URL = 'https://messengify-api.herokuapp.com';
-
 const INITIAL_STATE = {
     mode: 'login',
     id: '',
@@ -11,8 +9,16 @@ const INITIAL_STATE = {
     pass: '',
     to: '',
     operation: 'inbox',
-    received : [],
-    sent : [],
+    received : [
+        ['Mike', 'Come to Meeting by 5pm'],
+        ['Tyler', 'Hey, How are you?'],
+        ['Kasper', 'Long time no see.']
+    ],
+    sent : [
+        ['Mike', 'Come to Meeting by 5pm'],
+        ['Tyler', 'Hey, How are you?'],
+        ['Kasper', 'Long time no see.']
+    ],
     text: ''
 };
 
@@ -50,8 +56,7 @@ class App extends Component {
             alert("Please fill all the fields with a valid entry.")
         } else {
             axLib.request({
-                url: '/login',
-                baseURL: BASE_URL,
+                url: 'http://localhost:3003/login',
                 method: 'post',
                 headers: {'Content-Type': 'application/json'},
                 data: {
@@ -71,8 +76,7 @@ class App extends Component {
 
     initiateLoadingMails = (id) => {
         axLib.request({
-            url: '/load',
-            baseURL: BASE_URL,
+            url: 'http://localhost:3003/load',
             method: 'post',
             headers: {'Content-Type': 'application/json'},
             data: {
@@ -103,8 +107,7 @@ class App extends Component {
             alert("Please fill all the fields with a valid entry.")
         } else {
             let res = axLib.request({
-                url: '/register',
-                baseURL: BASE_URL,
+                url: 'http://localhost:3003/register',
                 method: 'post',
                 headers: {'Content-Type': 'application/json'},
                 data: {
@@ -253,8 +256,7 @@ class App extends Component {
             alert('Please fill all the fields with a valid entry.');
         } else {
             axLib.request({
-                url: '/send',
-                baseURL: BASE_URL,
+                url: 'http://localhost:3003/send',
                 method: 'post',
                 headers: {'Content-Type': 'application/json'},
                 data: {
