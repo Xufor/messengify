@@ -9,16 +9,8 @@ const INITIAL_STATE = {
     pass: '',
     to: '',
     operation: 'inbox',
-    received : [
-        ['Mike', 'Come to Meeting by 5pm'],
-        ['Tyler', 'Hey, How are you?'],
-        ['Kasper', 'Long time no see.']
-    ],
-    sent : [
-        ['Mike', 'Come to Meeting by 5pm'],
-        ['Tyler', 'Hey, How are you?'],
-        ['Kasper', 'Long time no see.']
-    ],
+    received : [],
+    sent : [],
     text: ''
 };
 
